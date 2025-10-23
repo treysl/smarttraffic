@@ -157,18 +157,24 @@ def smart_traffic_management_system(sensor_stream, max_recent_readings=100):
         
         # EAGER: Make immediate signal control decision
         signal_decision = should_turn_green(avg_wait, current_vehicle_count)
-        
+
         print(f"Reading: {sensor_reading}, Avg Wait: {avg_wait:.2f}s, Count: {current_vehicle_count}, Turn Green: {signal_decision}")
-        
+
         # Yield the decision for this time step
         yield signal_decision
 
-# Example usage for the corrected hybrid system
-dummy_stream = [(i*2, 5 + (i % 3)) for i in range(150)]
+if __name__ == "__main__":
+    # This block only runs when the script is executed directly,
+    # not when it's imported as a module.
+    
+    # Example usage for the corrected hybrid system
+    dummy_stream = [(i*2, 5 + (i % 3)) for i in range(150)]
 
-# Run the management system
-for decision in smart_traffic_management_system(dummy_stream, max_recent_readings=50):
-    # In a real system, you might do something with this 'decision'
-    pass
-
-# *** FIX: Removed the trailing '}' syntax error ***
+    # Run the management system
+    # iterate over the generator to get the decisions
+    # added try-except to catch any runtime issues
+    try:
+        for decision in smart_traffic_management_system(dummy_stream, max_recent_readings=50):
+            pass
+    except Exception as e:
+        print(f"Critical runtime issue: {e}")
