@@ -1,3 +1,6 @@
+import time
+time.sleep(0.1)
+#---------------------------------------------------
 # Task 1 Calculate Average Waiting Time
 def calculate_average_waiting_time(sensor_data):
     """
